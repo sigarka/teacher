@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Приглашение на последний звонок</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f9f3e9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-image: url('https://img.freepik.com/free-vector/hand-painted-watercolor-pastel-sky-background_23-2148902771.jpg');
+            background-size: cover;
+        }
+        
+        .container {
+            text-align: center;
+            perspective: 1000px;
+        }
+        
+        .envelope {
+            width: 300px;
+            height: 200px;
+            background-color: #e74c3c;
+            border-radius: 5px;
+            position: relative;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s;
+            transform-style: preserve-3d;
+            margin: 0 auto;
+        }
+        
+        .envelope:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            width: 0;
+            height: 0;
+            border-left: 150px solid transparent;
+            border-right: 150px solid transparent;
+            border-top: 100px solid #c0392b;
+            transform-origin: top;
+            transform: rotateX(0deg);
+            transition: all 0.3s ease-in-out;
+            z-index: 3;
+        }
+        
+        .envelope.open:before {
+            transform: rotateX(180deg);
+        }
+        
+        .envelope:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            width: 0;
+            height: 0;
+            border-left: 150px solid transparent;
+            border-right: 150px solid transparent;
+            border-bottom: 100px solid #d35400;
+            z-index: 1;
+        }
+        
+        .letter {
+            position: absolute;
+            width: 280px;
+            height: 180px;
+            background-color: white;
+            top: 10px;
+            left: 10px;
+            border-radius: 3px;
+            z-index: 2;
+            transition: all 0.3s ease-in-out;
+            transform: translateY(0);
+            padding: 10px;
+            box-sizing: border-box;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        .envelope.open .letter {
+            transform: translateY(-150px);
+            height: 300px;
+        }
+        
+        .invitation {
+            display: none;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            max-width: 500px;
+            margin: 20px auto;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            position: relative;
+            border: 1px solid #eee;
+        }
+        
+        .invitation:before {
+            content: '🎓';
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            font-size: 40px;
+        }
+        
+        .invitation:after {
+            content: '🔔';
+            position: absolute;
+            bottom: -20px;
+            right: -20px;
+            font-size: 40px;
+        }
+        
+        h1 {
+            color: #e74c3c;
+            margin-top: 0;
+        }
+        
+        p {
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        
+        .signature {
+            font-style: italic;
+            margin-top: 20px;
+        }
+        
+        .date-place {
+            font-weight: bold;
+            background-color: #f9f3e9;
+            padding: 8px 15px;
+            border-radius: 20px;
+            display: inline-block;
+            margin: 10px 0;
+        }
+        
+        .hearts {
+            color: #e74c3c;
+            font-size: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="envelope" id="envelope">
+            <div class="letter">Нажмите, чтобы открыть приглашение</div>
+        </div>
+        
+        <div class="invitation" id="invitation">
+            <h1>Приглашение на последний звонок</h1>
+            <div id="invitation-text"></div>
+            <div class="signature">С теплом и благодарностью,<br>Ваши 11-е классы <span class="hearts">💫</span></div>
+        </div>
+    </div>
+
+    <script>
+        const teachers = [
+            "Зарият Ахмедовна",
+            "Заира Рагадиновна",
+            "Саида Мирзоевна",
+            "Марьям Мусаевна",
+            "Курбан Магомедович",
+            "Курбан Курбанович",
+            "Мая Гасретовна",
+            "Елена Николаевна",
+            "Фериде МеликАхмедовна",
+            "Амалия Абдулнуровна"
+        ];
+
+        // Получаем параметр из URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const teacherIndex = parseInt(urlParams.get('teacher')) || 0;
+        const teacherName = teachers[teacherIndex >= 0 && teacherIndex < teachers.length ? teacherIndex : 0];
+
+        // Текст приглашения
+        const invitationText = `
+            <p>Дорогая ${teacherName}!</p>
+            <p>От всех выпускников 11-х классов — «А», «Б» и «В» — мы сердечно приглашаем Вас на наш последний звонок!</p>
+            <p>Вы стали для нас не просто учителем, а мудрым наставником, поддержкой и вдохновением. Мы хотим, чтобы в этот особенный день Вы были рядом — ведь без Вас наш праздник будет неполным!</p>
+            <div class="date-place">Ждём Вас 26 мая в 10:00 в  Актовом зале школы №26</div>
+        `;
+
+        // Назначаем текст приглашения
+        document.getElementById('invitation-text').innerHTML = invitationText;
+
+        // Анимация конверта
+        const envelope = document.getElementById('envelope');
+        const invitation = document.getElementById('invitation');
+
+        envelope.addEventListener('click', function() {
+            this.classList.toggle('open');
+            
+            if (this.classList.contains('open')) {
+                setTimeout(() => {
+                    invitation.style.display = 'block';
+                }, 300);
+            } else {
+                invitation.style.display = 'none';
+            }
+        });
+
+        // Если в URL есть параметр teacher, сразу открываем приглашение
+        if (urlParams.has('teacher')) {
+            setTimeout(() => {
+                envelope.classList.add('open');
+                invitation.style.display = 'block';
+            }, 500);
+        }
+    </script>
+</body>
+</html>
