@@ -166,7 +166,7 @@
     <script>
         const teachers = [
             "Зарият Ахмедовна",
-            "Заира Рагадиновна",
+            "Заира Рагадиновна", 
             "Саида Мирзоевна",
             "Марьям Мусаевна",
             "Курбан Магомедович",
@@ -177,17 +177,25 @@
             "Амалия Абдулнуровна"
         ];
 
+        // Определяем мужские отчества
+        const malePatronymics = ["Магомедович", "Курбанович"];
+
         // Получаем параметр из URL
         const urlParams = new URLSearchParams(window.location.search);
         const teacherIndex = parseInt(urlParams.get('teacher')) || 0;
         const teacherName = teachers[teacherIndex >= 0 && teacherIndex < teachers.length ? teacherIndex : 0];
+        
+        // Определяем правильное обращение
+        const patronymic = teacherName.split(' ')[1];
+        const isMale = malePatronymics.includes(patronymic);
+        const address = isMale ? "Дорогой" : "Дорогая";
 
         // Текст приглашения
         const invitationText = `
-            <p>Дорогая ${teacherName}!</p>
+            <p>${address} ${teacherName}!</p>
             <p>От всех выпускников 11-х классов — «А», «Б» и «В» — мы сердечно приглашаем Вас на наш последний звонок!</p>
             <p>Вы стали для нас не просто учителем, а мудрым наставником, поддержкой и вдохновением. Мы хотим, чтобы в этот особенный день Вы были рядом — ведь без Вас наш праздник будет неполным!</p>
-            <div class="date-place">Ждём Вас 24 мая в 10:00 в  Актовом зале школы №26</div>
+            <div class="date-place">Ждём Вас 24 мая в 10:00 в Актовом зале школы №26.</div>
         `;
 
         // Назначаем текст приглашения
