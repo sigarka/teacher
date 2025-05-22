@@ -205,25 +205,17 @@
         const envelope = document.getElementById('envelope');
         const invitation = document.getElementById('invitation');
 
+        // Автоматически открываем если есть параметр teacher
+        if (urlParams.has('teacher')) {
+            envelope.classList.add('open');
+            invitation.style.display = 'block';
+        }
+
+        // Ручное открытие/закрытие по клику
         envelope.addEventListener('click', function() {
             this.classList.toggle('open');
-            
-            if (this.classList.contains('open')) {
-                setTimeout(() => {
-                    invitation.style.display = 'block';
-                }, 300);
-            } else {
-                invitation.style.display = 'none';
-            }
+            invitation.style.display = this.classList.contains('open') ? 'block' : 'none';
         });
-
-        // Если в URL есть параметр teacher, сразу открываем приглашение
-        if (urlParams.has('teacher')) {
-            setTimeout(() => {
-                envelope.classList.add('open');
-                invitation.style.display = 'block';
-            }, 500);
-        }
     </script>
 </body>
 </html>
