@@ -205,13 +205,7 @@
 
         // Анимация конверта
         const envelope = document.getElementById('envelope');
-        const invitation = document.getElementById('invitation');
-
-        // Автоматически открываем только если есть параметр teacher в URL
-        if (hasTeacherParam) {
-            envelope.classList.add('open');
-            invitation.style.display = 'block';
-        }
+        const invitation = document.getElementById('invitation')
 
         // Ручное открытие/закрытие по клику
         envelope.addEventListener('click', function() {
