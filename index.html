@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Приглашение на последний звонок</title>
     <style>
+        /* Ваши стили остаются без изменений */
         body {
             font-family: 'Arial', sans-serif;
             background-color: #f9f3e9;
@@ -182,6 +183,7 @@
 
         // Получаем параметр из URL
         const urlParams = new URLSearchParams(window.location.search);
+        const hasTeacherParam = urlParams.has('teacher');
         const teacherIndex = parseInt(urlParams.get('teacher')) || 0;
         const teacherName = teachers[teacherIndex >= 0 && teacherIndex < teachers.length ? teacherIndex : 0];
         
@@ -205,8 +207,8 @@
         const envelope = document.getElementById('envelope');
         const invitation = document.getElementById('invitation');
 
-        // Автоматически открываем если есть параметр teacher
-        if (urlParams.has('teacher')) {
+        // Автоматически открываем только если есть параметр teacher в URL
+        if (hasTeacherParam) {
             envelope.classList.add('open');
             invitation.style.display = 'block';
         }
